@@ -6,7 +6,7 @@ import { Box, TextField, InputAdornment, Button } from "@mui/material";
 
 const RegisterForm = () => {
   return (
-    <form style={{ height: "16rem" }}>
+    <form style={{ height: "17rem" }}>
       <Box sx={{ margin: "0 0 1.5rem 0" }}>
         <TextField
           InputProps={{
@@ -69,6 +69,10 @@ const RegisterForm = () => {
           width: "22rem",
           borderRadius: "2rem",
           margin: "2.5rem 0 0",
+          textTransform: "none",
+          padding: ".5rem 2rem",
+          background:
+            "linear-gradient(178.18deg, #FD749B -13.56%, #281AC8 158.3%)",
         }}
       >
         Register

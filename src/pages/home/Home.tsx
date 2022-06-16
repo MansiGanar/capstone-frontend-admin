@@ -60,11 +60,11 @@ const Home = () => {
       <Box sx={{ padding: "4rem 5rem 0 0" }}>
         <Card sx={cardStyle}>
           <CardContent>
-            <Box sx={{ padding: "2rem 5rem" }}>
+            <Box sx={{ padding: "2rem 5rem", color: "#5C5C5C" }}>
               <Typography variant="h5" fontWeight={700}>
                 comfy decor
               </Typography>
-              <Typography variant="h6" fontWeight={500} sx={{ opacity: ".8" }}>
+              <Typography variant="h6" fontWeight={500}>
                 the furniture store
               </Typography>
               <Divider sx={{ margin: "1rem 0" }} />

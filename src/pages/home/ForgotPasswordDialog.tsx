@@ -42,14 +42,27 @@ const ForgotPasswordDialog = ({ open, handleClose }: IForgotPasswordDialog) => {
         <Button
           onClick={handleClose}
           variant="outlined"
-          sx={{ borderRadius: "2rem" }}
+          sx={{
+            borderRadius: "2rem",
+            color: "#9849B0",
+            borderColor: "#9849B0",
+            ":hover": {
+              borderColor: "#9849B0",
+            },
+            textTransform: "none",
+          }}
         >
           Cancel
         </Button>
         <Button
           onClick={handleClose}
           variant="contained"
-          sx={{ borderRadius: "2rem" }}
+          sx={{
+            borderRadius: "2rem",
+            background:
+              "linear-gradient(178.18deg, #FD749B -13.56%, #281AC8 158.3%)",
+            textTransform: "none",
+          }}
         >
           Submit
         </Button>

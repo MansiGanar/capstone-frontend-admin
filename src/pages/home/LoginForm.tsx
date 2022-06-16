@@ -23,7 +23,7 @@ const LoginForm = () => {
   };
 
   return (
-    <form style={{ height: "16rem" }}>
+    <form style={{ height: "17rem" }}>
       <Box sx={{ padding: "0 0 1.5rem 0" }}>
         <TextField
           InputProps={{
@@ -58,6 +58,10 @@ const LoginForm = () => {
           width: "22rem",
           borderRadius: "2rem",
           margin: "2.5rem 0 0",
+          textTransform: "none",
+          padding: ".5rem 2rem",
+          background:
+            "linear-gradient(178.18deg, #FD749B -13.56%, #281AC8 158.3%)",
         }}
       >
         Login
@@ -66,7 +70,7 @@ const LoginForm = () => {
         <Typography
           variant="body1"
           fontWeight={500}
-          sx={{ margin: "2rem 0 0" }}
+          sx={{ margin: "2rem 0 0", color: "#5C5C5C" }}
         >
           Forgot password?
         </Typography>
