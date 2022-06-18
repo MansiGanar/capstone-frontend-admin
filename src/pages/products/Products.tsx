@@ -4,8 +4,19 @@ import AddIcon from "@mui/icons-material/Add";
 import Page from "../../shared-components/Page/Page";
 import ListHeader from "./ListHeader";
 import ListRow from "./ListRow";
+import AddProductForm from "./AddProductForm";
 
 const Products = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Page>
       <Typography
@@ -32,6 +43,7 @@ const Products = () => {
               background:
                 "linear-gradient(178.18deg, #FD749B -13.56%, #281AC8 158.3%)",
             }}
+            onClick={handleClickOpen}
           >
             Add Product
           </Button>
@@ -67,6 +79,7 @@ const Products = () => {
           </Button>
         </Box>
       </Box>
+      <AddProductForm open={open} handleClose={handleClose} />
     </Page>
   );
 };

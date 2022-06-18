@@ -1,8 +1,19 @@
 import React from "react";
 import { Grid, Chip } from "@mui/material";
 import ListRowActionMenu from "./ListRowActionMenu";
+import ConfirmDeleteDialog from "./ConfirmDeleteDialog";
 
 const ListRow = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Grid
       container
@@ -43,8 +54,9 @@ const ListRow = () => {
         /> */}
       </Grid>
       <Grid item sm={1} textAlign="end">
-        <ListRowActionMenu />
+        <ListRowActionMenu handleClickOpen={handleClickOpen} />
       </Grid>
+      <ConfirmDeleteDialog open={open} handleClose={handleClose} />
     </Grid>
   );
 };

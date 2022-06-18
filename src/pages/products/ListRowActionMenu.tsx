@@ -2,7 +2,11 @@ import React from "react";
 import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-const ListRowActionMenu = () => {
+interface IListRowActionMenuProps {
+  handleClickOpen: () => void;
+}
+
+const ListRowActionMenu = ({ handleClickOpen }: IListRowActionMenuProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -44,7 +48,10 @@ const ListRowActionMenu = () => {
           Edit
         </MenuItem>
         <MenuItem
-          onClick={handleClose}
+          onClick={() => {
+            handleClickOpen();
+            handleClose();
+          }}
           sx={{ color: "#858585", padding: ".5rem 1rem" }}
         >
           Delete
