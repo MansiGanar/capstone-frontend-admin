@@ -16,6 +16,7 @@ import {
   FormControl,
   IconButton,
   Grid,
+  Typography,
 } from "@mui/material";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import EuroIcon from "@mui/icons-material/Euro";
@@ -188,6 +189,9 @@ const AddProductForm = ({ open, handleClose }: IAddProductFormProps) => {
             >
               Upload
             </Button>
+            <Typography sx={{ margin: ".5rem 0", color: "#858585" }}>
+              * Please upload a maximum of 3 images only.
+            </Typography>
           </label>
         </form>
       </DialogContent>
