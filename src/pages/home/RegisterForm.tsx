@@ -3,15 +3,10 @@ import { useSnackbar } from "notistack";
 import PersonIcon from "@mui/icons-material/Person";
 import EmailIcon from "@mui/icons-material/Email";
 import KeyIcon from "@mui/icons-material/Key";
-import {
-  Box,
-  TextField,
-  InputAdornment,
-  Button,
-  CircularProgress,
-} from "@mui/material";
+import { Box, TextField, InputAdornment, Button } from "@mui/material";
 import { registerAdmin } from "../../api/authentication/authentication";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../shared-components/Loader/Loader";
 
 const RegisterForm = () => {
   const defaultFormValues = {
@@ -136,7 +131,7 @@ const RegisterForm = () => {
           />
         </Box>
         {loading ? (
-          <CircularProgress sx={{ marginTop: "2.5rem", color: "#9849B0" }} />
+          <Loader />
         ) : (
           <Button
             variant="contained"
