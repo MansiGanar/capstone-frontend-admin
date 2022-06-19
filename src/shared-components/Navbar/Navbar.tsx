@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Typography, Divider, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { GetProfileResponse } from "../../api/authentication/types";
+import { useSnackbar } from "notistack";
+import { getAdminProfile } from "../../api/authentication/authentication";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -10,6 +13,35 @@ const Navbar = () => {
     localStorage.clear();
     navigate("/");
   };
+
+  const [response, setResponse] = useState<GetProfileResponse | null>(null);
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  const token = localStorage.getItem("token");
+
+  const getProfileData = async () => {
+    if (token) {
+      try {
+        const response = await getAdminProfile(token);
+        setResponse(response);
+      } catch (error: any) {
+        enqueueSnackbar(
+          error?.response?.data?.errors[0]?.msg ||
+            error?.response?.data?.msg ||
+            "An error occurred. Please try again.",
+          {
+            variant: "error",
+          }
+        );
+        setResponse(null);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getProfileData();
+  }, []);
 
   return (
     <>
@@ -42,7 +74,9 @@ const Navbar = () => {
           </Typography>
         </Grid>
         <Grid item>
-          <Typography fontWeight={500}>Name Surname</Typography>
+          <Typography fontWeight={500}>
+            {`${response?.firstName || ""} ${response?.lastName || ""}`}
+          </Typography>
         </Grid>
         <Grid item>
           <IconButton
