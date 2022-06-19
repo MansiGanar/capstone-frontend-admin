@@ -7,3 +7,22 @@ a {
   text-decoration: none;
   color: black;
 }
+
+.SnackbarItem-variantError {
+  background: #f85d5d !important;
+  color: white !important;
+}
+
+.SnackbarItem-variantInfo {
+  background: linear-gradient(
+    178.18deg,
+    #fd749b -13.56%,
+    #281ac8 158.3%
+  ) !important;
+  color: white !important;
+}
+
+.SnackbarItem-variantSuccess {
+  background: #5df888 !important;
+  color: white !important;
+}

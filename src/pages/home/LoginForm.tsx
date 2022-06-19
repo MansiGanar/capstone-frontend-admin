@@ -46,6 +46,7 @@ const LoginForm = () => {
                 <KeyIcon />
               </InputAdornment>
             ),
+            type: "password",
           }}
           variant="standard"
           placeholder="Password"

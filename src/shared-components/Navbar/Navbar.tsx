@@ -1,8 +1,16 @@
 import React from "react";
 import { Grid, Typography, Divider, IconButton } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
   return (
     <>
       <Grid
@@ -40,6 +48,7 @@ const Navbar = () => {
           <IconButton
             aria-label="logout"
             sx={{ marginLeft: "1rem", color: "#9849B0" }}
+            onClick={logout}
           >
             <LogoutIcon />
           </IconButton>

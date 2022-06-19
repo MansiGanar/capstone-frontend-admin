@@ -14,6 +14,7 @@ import { backgroundStyle, cardStyle } from "./styles";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import { TabPanelProps } from "./types";
+import { Navigate } from "react-router-dom";
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -54,6 +55,12 @@ const Home = () => {
   const handleChangeIndex = (index: number) => {
     setValue(index);
   };
+
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    return <Navigate to="/products" />;
+  }
 
   return (
     <Box sx={backgroundStyle}>
