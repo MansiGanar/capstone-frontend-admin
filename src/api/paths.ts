@@ -4,3 +4,5 @@ export const BASE_URL =
 export const REGISTER_ADMIN_URL = BASE_URL + "register";
 export const LOGIN_ADMIN_URL = BASE_URL + "login";
 export const GET_ADMIN_PROFILE_ADMIN_URL = BASE_URL + "profile";
+
+export const ADD_PRODUCT_URL = BASE_URL + "products";
