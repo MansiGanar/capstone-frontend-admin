@@ -55,11 +55,11 @@ const ListRow = () => {
         />
         {/* <Chip
           label="Cancelled"
-          sx={{ background: "#F85D5D", fontWeight: "700", color: "#FFFFFF" }}
+          sx={{ background: "#EB3232", fontWeight: "700", color: "#FFFFFF" }}
         />
         <Chip
           label="Completed"
-          sx={{ background: "#5DF888", fontWeight: "700", color: "#FFFFFF" }}
+          sx={{ background: "#0FE133", fontWeight: "700", color: "#FFFFFF" }}
         /> */}
       </Grid>
       <Grid item sm={1} textAlign="end">

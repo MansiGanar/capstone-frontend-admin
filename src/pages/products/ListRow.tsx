@@ -2,8 +2,13 @@ import React from "react";
 import { Grid, Chip } from "@mui/material";
 import ListRowActionMenu from "./ListRowActionMenu";
 import ConfirmDeleteDialog from "./ConfirmDeleteDialog";
+import { Product } from "../../api/products/types";
 
-const ListRow = () => {
+interface IListRowProps {
+  product: Product;
+}
+
+const ListRow = ({ product }: IListRowProps) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -29,29 +34,32 @@ const ListRow = () => {
     >
       <Grid item sm={3}>
         <img
-          src={"https://mui.com/static/images/cards/paella.jpg"}
+          src={product.image}
           alt="product"
           style={{ borderRadius: "1rem", width: "5rem" }}
         />
       </Grid>
       <Grid item sm={2}>
-        name
+        {product.name}
       </Grid>
       <Grid item sm={2}>
-        quantity
+        {product.quantity}
       </Grid>
       <Grid item sm={2}>
-        price
+        {`€ ${product.price}`}
       </Grid>
       <Grid item sm={2}>
-        <Chip
-          label="Available"
-          sx={{ background: "#5DF888", fontWeight: "700", color: "#FFFFFF" }}
-        />
-        {/* <Chip
-          label="Out Of Stock"
-          sx={{ background: "#F85D5D", fontWeight: "700", color: "#FFFFFF" }}
-        /> */}
+        {product.quantity > 0 ? (
+          <Chip
+            label="Available"
+            sx={{ background: "#0FE133", fontWeight: "700", color: "#FFFFFF" }}
+          />
+        ) : (
+          <Chip
+            label="Out Of Stock"
+            sx={{ background: "#EB3232", fontWeight: "700", color: "#FFFFFF" }}
+          />
+        )}
       </Grid>
       <Grid item sm={1} textAlign="end">
         <ListRowActionMenu handleClickOpen={handleClickOpen} />

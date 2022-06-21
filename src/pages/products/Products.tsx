@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Box, Grid, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Page from "../../shared-components/Page/Page";
 import ListHeader from "./ListHeader";
 import ListRow from "./ListRow";
 import AddProductForm from "./AddProductForm";
+import { getProductsByCategory } from "../../api/products/products";
+import { useSnackbar } from "notistack";
+import { GetProductsByCategoryResponse } from "../../api/products/types";
+import Loader from "../../shared-components/Loader/Loader";
 
 const Products = () => {
+  const token = localStorage.getItem("token");
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -16,6 +22,54 @@ const Products = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const [category, setCategory] = useState("kitchen");
+
+  const handleClickCategory = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    setCategory(e.currentTarget.id);
+  };
+
+  const selectedCategoryStyles = (id: string) =>
+    category === id
+      ? {
+          borderBottom: "4px solid #9849B0",
+          padding: "0 0.5rem 0.5rem 0.5rem",
+          color: "#9849B0",
+        }
+      : { padding: "0 0.5rem 0.5rem 0.5rem" };
+
+  const [response, setResponse] =
+    useState<GetProductsByCategoryResponse | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  const getProducts = async () => {
+    if (token) {
+      setLoading(true);
+      try {
+        const response = await getProductsByCategory(category, token);
+        setResponse(response);
+      } catch (error: any) {
+        setResponse(null);
+        enqueueSnackbar(
+          error?.response?.data?.errors[0]?.msg ||
+            error?.response?.data?.msg ||
+            "An error occurred. Please try again.",
+          {
+            variant: "error",
+          }
+        );
+      }
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, [category]);
 
   return (
     <Page>
@@ -49,36 +103,82 @@ const Products = () => {
           </Button>
         </Grid>
       </Grid>
-      <Box
-        sx={{
-          padding: "3rem",
-          border: "2px solid #F0F0F0",
-          borderRadius: ".5rem",
-          marginTop: "2rem",
-          background: "#FFFFFF",
-        }}
-      >
-        <ListHeader />
-        <ListRow />
-        <ListRow />
-        <ListRow />
-        <ListRow />
-        <ListRow />
-        <Box sx={{ textAlign: "center", margin: "2rem 0 -1rem " }}>
-          <Button
-            variant="contained"
-            sx={{
-              borderRadius: "2rem",
-              textTransform: "none",
-              padding: ".5rem 2rem",
-              background:
-                "linear-gradient(178.18deg, #FD749B -13.56%, #281AC8 158.3%)",
-            }}
+      <Grid container sx={{ margin: "1rem 0 0 0" }} gap="1rem">
+        <Grid item sx={{ cursor: "pointer" }}>
+          <Typography
+            sx={selectedCategoryStyles("kitchen")}
+            id="kitchen"
+            onClick={handleClickCategory}
           >
-            View More
-          </Button>
+            Kitchen
+          </Typography>
+        </Grid>
+        <Grid item sx={{ cursor: "pointer" }}>
+          <Typography
+            id="bedroom"
+            sx={selectedCategoryStyles("bedroom")}
+            onClick={handleClickCategory}
+          >
+            Bedroom
+          </Typography>
+        </Grid>
+        <Grid item sx={{ cursor: "pointer" }}>
+          <Typography
+            id="bathroom"
+            sx={selectedCategoryStyles("bathroom")}
+            onClick={handleClickCategory}
+          >
+            Bathroom
+          </Typography>
+        </Grid>
+        <Grid item sx={{ cursor: "pointer" }}>
+          <Typography
+            id="living-room"
+            sx={selectedCategoryStyles("living-room")}
+            onClick={handleClickCategory}
+          >
+            Living Room
+          </Typography>
+        </Grid>
+        <Grid item sx={{ cursor: "pointer" }}>
+          <Typography
+            id="outdoor"
+            sx={selectedCategoryStyles("outdoor")}
+            onClick={handleClickCategory}
+          >
+            Outdoor
+          </Typography>
+        </Grid>
+        <Grid item sx={{ cursor: "pointer" }}>
+          <Typography
+            id="office"
+            sx={selectedCategoryStyles("office")}
+            onClick={handleClickCategory}
+          >
+            Office
+          </Typography>
+        </Grid>
+      </Grid>
+      {loading ? (
+        <Box sx={{ textAlign: "center", marginTop: "5rem" }}>
+          <Loader />
         </Box>
-      </Box>
+      ) : (
+        <Box
+          sx={{
+            padding: "3rem",
+            border: "2px solid #F0F0F0",
+            borderRadius: ".5rem",
+            marginTop: "2rem",
+            background: "#FFFFFF",
+          }}
+        >
+          <ListHeader />
+          {response?.products.map((product, index) => (
+            <ListRow product={product} key={`product-list-row-item-${index}`} />
+          ))}
+        </Box>
+      )}
       <AddProductForm open={open} handleClose={handleClose} />
     </Page>
   );

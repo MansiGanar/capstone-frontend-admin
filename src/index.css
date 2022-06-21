@@ -9,7 +9,7 @@ a {
 }
 
 .SnackbarItem-variantError {
-  background: #f85d5d !important;
+  background: #eb3232 !important;
   color: white !important;
 }
 
@@ -23,6 +23,6 @@ a {
 }
 
 .SnackbarItem-variantSuccess {
-  background: #5df888 !important;
+  background: #0fe133 !important;
   color: white !important;
 }

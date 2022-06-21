@@ -1,15 +1,11 @@
-export interface Price {
-  $numberDecimal: string;
-}
-
 export interface Product {
   image: string;
   quantity: number;
   name: string;
   description: string;
-  price: Price;
+  price: string;
   rating: string;
-  category: string[];
+  category: string;
   _id: string;
   __v: number;
 }
@@ -17,4 +13,9 @@ export interface Product {
 export interface AddProductResponse {
   msg: string;
   product: Product;
+}
+
+export interface GetProductsByCategoryResponse {
+  msg: string;
+  products: Product[];
 }
