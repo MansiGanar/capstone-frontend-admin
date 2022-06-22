@@ -1,6 +1,14 @@
 import axios from "axios";
-import { ADD_PRODUCT_URL, GET_PRODUCTS_BY_CATEGORY_URL } from "../paths";
-import { AddProductResponse, GetProductsByCategoryResponse } from "./types";
+import {
+  ADD_PRODUCT_URL,
+  DELETE_PRODUCT_URL,
+  GET_PRODUCTS_BY_CATEGORY_URL,
+} from "../paths";
+import {
+  AddProductResponse,
+  DeleteProductResponse,
+  GetProductsByCategoryResponse,
+} from "./types";
 
 export const addProduct = async (
   formData: FormData,
@@ -27,5 +35,17 @@ export const getProductsByCategory = async (
       },
     }
   );
+  return data;
+};
+
+export const deleteProduct = async (
+  productId: string,
+  token: string
+): Promise<DeleteProductResponse> => {
+  const { data } = await axios.delete(`${DELETE_PRODUCT_URL}${productId}`, {
+    headers: {
+      "auth-token": token,
+    },
+  });
   return data;
 };

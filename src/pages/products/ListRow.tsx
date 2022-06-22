@@ -64,7 +64,11 @@ const ListRow = ({ product }: IListRowProps) => {
       <Grid item sm={1} textAlign="end">
         <ListRowActionMenu handleClickOpen={handleClickOpen} />
       </Grid>
-      <ConfirmDeleteDialog open={open} handleClose={handleClose} />
+      <ConfirmDeleteDialog
+        open={open}
+        handleClose={handleClose}
+        productId={product._id}
+      />
     </Grid>
   );
 };

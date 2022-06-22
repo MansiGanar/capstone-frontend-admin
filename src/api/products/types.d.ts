@@ -19,3 +19,7 @@ export interface GetProductsByCategoryResponse {
   msg: string;
   products: Product[];
 }
+
+export interface DeleteProductResponse {
+  msg: string;
+}
