@@ -3,11 +3,13 @@ import {
   ADD_PRODUCT_URL,
   DELETE_PRODUCT_URL,
   GET_PRODUCTS_BY_CATEGORY_URL,
+  GET_PRODUCT_BY_ID_URL,
 } from "../paths";
 import {
   AddProductResponse,
   DeleteProductResponse,
   GetProductsByCategoryResponse,
+  Product,
 } from "./types";
 
 export const addProduct = async (
@@ -43,6 +45,18 @@ export const deleteProduct = async (
   token: string
 ): Promise<DeleteProductResponse> => {
   const { data } = await axios.delete(`${DELETE_PRODUCT_URL}${productId}`, {
+    headers: {
+      "auth-token": token,
+    },
+  });
+  return data;
+};
+
+export const getProductById = async (
+  productId: string,
+  token: string
+): Promise<Product> => {
+  const { data } = await axios.get(`${GET_PRODUCT_BY_ID_URL}${productId}`, {
     headers: {
       "auth-token": token,
     },

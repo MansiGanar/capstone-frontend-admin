@@ -4,9 +4,13 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 interface IListRowActionMenuProps {
   handleClickOpen: () => void;
+  handleViewOpen: () => void;
 }
 
-const ListRowActionMenu = ({ handleClickOpen }: IListRowActionMenuProps) => {
+const ListRowActionMenu = ({
+  handleClickOpen,
+  handleViewOpen,
+}: IListRowActionMenuProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -41,6 +45,15 @@ const ListRowActionMenu = ({ handleClickOpen }: IListRowActionMenuProps) => {
           "& .MuiList-root": { padding: 0 },
         }}
       >
+        <MenuItem
+          onClick={() => {
+            handleViewOpen();
+            handleClose();
+          }}
+          sx={{ color: "#858585", padding: ".5rem 1rem" }}
+        >
+          View
+        </MenuItem>
         <MenuItem
           onClick={handleClose}
           sx={{ color: "#858585", padding: ".5rem 1rem" }}

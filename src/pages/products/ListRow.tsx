@@ -3,6 +3,7 @@ import { Grid, Chip } from "@mui/material";
 import ListRowActionMenu from "./ListRowActionMenu";
 import ConfirmDeleteDialog from "./ConfirmDeleteDialog";
 import { Product } from "../../api/products/types";
+import ViewProductDetailsDialog from "./ViewProductDetailsDialog";
 
 interface IListRowProps {
   product: Product;
@@ -17,6 +18,16 @@ const ListRow = ({ product }: IListRowProps) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const [openDetails, setOpenDetails] = React.useState(false);
+
+  const handleClickOpenDetails = () => {
+    setOpenDetails(true);
+  };
+
+  const handleCloseDetails = () => {
+    setOpenDetails(false);
   };
 
   return (
@@ -52,21 +63,39 @@ const ListRow = ({ product }: IListRowProps) => {
         {product.quantity > 0 ? (
           <Chip
             label="Available"
-            sx={{ background: "#0FE133", fontWeight: "700", color: "#FFFFFF" }}
+            sx={{
+              background: "#0FE133",
+              fontWeight: "700",
+              color: "#FFFFFF",
+              width: "7rem",
+            }}
           />
         ) : (
           <Chip
             label="Out Of Stock"
-            sx={{ background: "#EB3232", fontWeight: "700", color: "#FFFFFF" }}
+            sx={{
+              background: "#EB3232",
+              fontWeight: "700",
+              color: "#FFFFFF",
+              width: "7rem",
+            }}
           />
         )}
       </Grid>
       <Grid item sm={1} textAlign="end">
-        <ListRowActionMenu handleClickOpen={handleClickOpen} />
+        <ListRowActionMenu
+          handleClickOpen={handleClickOpen}
+          handleViewOpen={handleClickOpenDetails}
+        />
       </Grid>
       <ConfirmDeleteDialog
         open={open}
         handleClose={handleClose}
+        productId={product._id}
+      />
+      <ViewProductDetailsDialog
+        open={openDetails}
+        handleClose={handleCloseDetails}
         productId={product._id}
       />
     </Grid>
