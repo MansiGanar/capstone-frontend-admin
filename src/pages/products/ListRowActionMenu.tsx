@@ -5,11 +5,13 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 interface IListRowActionMenuProps {
   handleClickOpen: () => void;
   handleViewOpen: () => void;
+  handleClickEditOpen: () => void;
 }
 
 const ListRowActionMenu = ({
   handleClickOpen,
   handleViewOpen,
+  handleClickEditOpen,
 }: IListRowActionMenuProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -55,7 +57,10 @@ const ListRowActionMenu = ({
           View
         </MenuItem>
         <MenuItem
-          onClick={handleClose}
+          onClick={() => {
+            handleClickEditOpen();
+            handleClose();
+          }}
           sx={{ color: "#858585", padding: ".5rem 1rem" }}
         >
           Edit

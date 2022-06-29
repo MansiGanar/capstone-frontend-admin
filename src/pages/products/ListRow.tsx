@@ -4,6 +4,7 @@ import ListRowActionMenu from "./ListRowActionMenu";
 import ConfirmDeleteDialog from "./ConfirmDeleteDialog";
 import { Product } from "../../api/products/types";
 import ViewProductDetailsDialog from "./ViewProductDetailsDialog";
+import ProductForm from "./ProductForm";
 
 interface IListRowProps {
   product: Product;
@@ -28,6 +29,16 @@ const ListRow = ({ product }: IListRowProps) => {
 
   const handleCloseDetails = () => {
     setOpenDetails(false);
+  };
+
+  const [openEditProductForm, setOpenEditProductForm] = React.useState(false);
+
+  const handleClickOpenEditProductForm = () => {
+    setOpenEditProductForm(true);
+  };
+
+  const handleCloseEditProductForm = () => {
+    setOpenEditProductForm(false);
   };
 
   return (
@@ -86,6 +97,7 @@ const ListRow = ({ product }: IListRowProps) => {
         <ListRowActionMenu
           handleClickOpen={handleClickOpen}
           handleViewOpen={handleClickOpenDetails}
+          handleClickEditOpen={handleClickOpenEditProductForm}
         />
       </Grid>
       <ConfirmDeleteDialog
@@ -96,6 +108,12 @@ const ListRow = ({ product }: IListRowProps) => {
       <ViewProductDetailsDialog
         open={openDetails}
         handleClose={handleCloseDetails}
+        productId={product._id}
+      />
+      <ProductForm
+        open={openEditProductForm}
+        handleClose={handleCloseEditProductForm}
+        formType={"EDIT"}
         productId={product._id}
       />
     </Grid>

@@ -22,20 +22,31 @@ import EuroIcon from "@mui/icons-material/Euro";
 import DescriptionIcon from "@mui/icons-material/Description";
 import CreateIcon from "@mui/icons-material/Create";
 import CloseIcon from "@mui/icons-material/Close";
-import { addProduct } from "../../api/products/products";
+import {
+  addProduct,
+  editProduct,
+  getProductById,
+} from "../../api/products/products";
 import { useSnackbar } from "notistack";
 import Loader from "../../shared-components/Loader/Loader";
 
-interface IAddProductFormProps {
+interface IProductFormProps {
   open: boolean;
   handleClose: () => void;
+  formType: "ADD" | "EDIT";
+  productId?: string;
 }
 
 const Input = styled("input")({
   display: "none",
 });
 
-const AddProductForm = ({ open, handleClose }: IAddProductFormProps) => {
+const ProductForm = ({
+  open,
+  handleClose,
+  formType,
+  productId,
+}: IProductFormProps) => {
   const token = localStorage.getItem("token");
 
   const [category, setCategory] = React.useState("");
@@ -74,7 +85,7 @@ const AddProductForm = ({ open, handleClose }: IAddProductFormProps) => {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleSubmit = async (
+  const addNewProduct = async (
     event:
       | React.FormEvent<HTMLFormElement>
       | React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -119,6 +130,95 @@ const AddProductForm = ({ open, handleClose }: IAddProductFormProps) => {
     }
   };
 
+  const editProductDetails = async (
+    event:
+      | React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    if (token && productId) {
+      event.preventDefault();
+
+      setLoading(true);
+      try {
+        const formData = new FormData();
+        formData.append("name", productDetailsFormData.name);
+        formData.append("description", productDetailsFormData.description);
+        formData.append("quantity", productDetailsFormData.quantity.toString());
+        formData.append("price", productDetailsFormData.price.toString());
+        formData.append("category", category);
+        image && formData.append("image", image, image?.name);
+
+        const response = await editProduct(formData, token, productId);
+        setProductDetailsFormData(defaultFormValues);
+        setCategory("");
+        setImage(null);
+        setImageURL("");
+        handleClose();
+        enqueueSnackbar(
+          `${response.name}'s details have been updated successfully.`,
+          {
+            variant: "success",
+          }
+        );
+      } catch (error: any) {
+        enqueueSnackbar(
+          error?.response?.data?.errors[0]?.msg ||
+            error?.response?.data?.msg ||
+            "An error occurred. Please try again.",
+          {
+            variant: "error",
+          }
+        );
+      }
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = async (
+    event:
+      | React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    formType === "ADD" ? addNewProduct(event) : editProductDetails(event);
+  };
+
+  const getProductDetails = async () => {
+    if (token && productId) {
+      setLoading(true);
+      try {
+        const response = await getProductById(productId, token);
+        setProductDetailsFormData({
+          name: response.name,
+          description: response.description,
+          quantity: response.quantity,
+          price: parseFloat(response.price),
+        });
+        setCategory(response.category);
+        setImageURL(response.image);
+      } catch (error: any) {
+        setProductDetailsFormData(defaultFormValues);
+        setCategory("");
+        setImage(null);
+        setImageURL("");
+        enqueueSnackbar(
+          error?.response?.data?.errors[0]?.msg ||
+            error?.response?.data?.msg ||
+            "An error occurred. Please try again.",
+          {
+            variant: "error",
+          }
+        );
+      }
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (token && productId && open) {
+      getProductDetails();
+    }
+  }, [productId, open]);
+
   return (
     <Dialog
       open={open}
@@ -134,7 +234,7 @@ const AddProductForm = ({ open, handleClose }: IAddProductFormProps) => {
       }}
     >
       <DialogTitle>
-        Add a new product
+        {formType === "ADD" ? "Add a new product" : "Edit a product"}
         <IconButton
           aria-label="close"
           onClick={handleClose}
@@ -171,6 +271,7 @@ const AddProductForm = ({ open, handleClose }: IAddProductFormProps) => {
               name="name"
               value={productDetailsFormData.name}
               onChange={handleChangeProductDetailsFormData}
+              disabled={loading}
             />
           </Box>
           <Box
@@ -193,6 +294,7 @@ const AddProductForm = ({ open, handleClose }: IAddProductFormProps) => {
               name="description"
               value={productDetailsFormData.description}
               onChange={handleChangeProductDetailsFormData}
+              disabled={loading}
             />
           </Box>
           <Grid container sx={{ marginBottom: "1rem" }}>
@@ -218,6 +320,7 @@ const AddProductForm = ({ open, handleClose }: IAddProductFormProps) => {
                   name="quantity"
                   value={productDetailsFormData.quantity}
                   onChange={handleChangeProductDetailsFormData}
+                  disabled={loading}
                 />
               </Box>
             </Grid>
@@ -241,6 +344,7 @@ const AddProductForm = ({ open, handleClose }: IAddProductFormProps) => {
                   name="price"
                   value={productDetailsFormData.price}
                   onChange={handleChangeProductDetailsFormData}
+                  disabled={loading}
                 />
               </Box>
             </Grid>
@@ -254,6 +358,7 @@ const AddProductForm = ({ open, handleClose }: IAddProductFormProps) => {
               label="Product Category"
               onChange={handleChange}
               required
+              disabled={loading}
             >
               <MenuItem value={"kitchen"}>Kitchen</MenuItem>
               <MenuItem value={"bedroom"}>Bedroom</MenuItem>
@@ -273,6 +378,7 @@ const AddProductForm = ({ open, handleClose }: IAddProductFormProps) => {
                 e.preventDefault();
                 setImage(e?.target?.files && e?.target?.files[0]);
               }}
+              disabled={loading}
             />
             <Button
               variant="contained"
@@ -283,6 +389,7 @@ const AddProductForm = ({ open, handleClose }: IAddProductFormProps) => {
                   "linear-gradient(178.18deg, #FD749B -13.56%, #281AC8 158.3%)",
                 textTransform: "none",
               }}
+              disabled={loading}
             >
               Upload
             </Button>
@@ -336,4 +443,4 @@ const AddProductForm = ({ open, handleClose }: IAddProductFormProps) => {
   );
 };
 
-export default AddProductForm;
+export default ProductForm;

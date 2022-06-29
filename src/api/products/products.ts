@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   ADD_PRODUCT_URL,
   DELETE_PRODUCT_URL,
+  EDIT_PRODUCT_URL,
   GET_PRODUCTS_BY_CATEGORY_URL,
   GET_PRODUCT_BY_ID_URL,
 } from "../paths";
@@ -22,6 +23,24 @@ export const addProduct = async (
       "Content-Type": "multipart/form-data",
     },
   });
+  return data;
+};
+
+export const editProduct = async (
+  formData: FormData,
+  token: string,
+  productId: string
+): Promise<Product> => {
+  const { data } = await axios.patch(
+    `${EDIT_PRODUCT_URL}${productId}`,
+    formData,
+    {
+      headers: {
+        "auth-token": token,
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
   return data;
 };
 

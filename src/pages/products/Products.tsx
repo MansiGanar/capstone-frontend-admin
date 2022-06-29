@@ -4,7 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import Page from "../../shared-components/Page/Page";
 import ListHeader from "./ListHeader";
 import ListRow from "./ListRow";
-import AddProductForm from "./AddProductForm";
+import ProductForm from "./ProductForm";
 import { getProductsByCategory } from "../../api/products/products";
 import { useSnackbar } from "notistack";
 import { GetProductsByCategoryResponse } from "../../api/products/types";
@@ -179,7 +179,7 @@ const Products = () => {
           ))}
         </Box>
       )}
-      <AddProductForm open={open} handleClose={handleClose} />
+      <ProductForm open={open} handleClose={handleClose} formType={"ADD"} />
     </Page>
   );
 };

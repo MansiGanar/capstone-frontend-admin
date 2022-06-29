@@ -54,8 +54,8 @@ const ViewProductDetailsDialog = ({
   };
 
   useEffect(() => {
-    getProductDetails();
-  }, []);
+    open && getProductDetails();
+  }, [open]);
 
   return (
     <Dialog
@@ -81,6 +81,7 @@ const ViewProductDetailsDialog = ({
             right: 24,
             top: 24,
             color: (theme) => theme.palette.grey[500],
+            marginLeft: loading ? "3rem" : "",
           }}
         >
           <CloseIcon />
@@ -132,7 +133,7 @@ const ViewProductDetailsDialog = ({
                 <Grid
                   container
                   alignItems="center"
-                  sx={{ marginRight: "2rem" }}
+                  sx={{ paddingRight: "2rem" }}
                 >
                   <Grid item sx={{ marginRight: ".7rem" }}>
                     <Typography fontWeight={700} sx={{ color: "#858585" }}>
