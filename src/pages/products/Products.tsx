@@ -175,11 +175,20 @@ const Products = () => {
         >
           <ListHeader />
           {response?.products.map((product, index) => (
-            <ListRow product={product} key={`product-list-row-item-${index}`} />
+            <ListRow
+              product={product}
+              key={`product-list-row-item-${index}`}
+              getProducts={getProducts}
+            />
           ))}
         </Box>
       )}
-      <ProductForm open={open} handleClose={handleClose} formType={"ADD"} />
+      <ProductForm
+        open={open}
+        handleClose={handleClose}
+        formType={"ADD"}
+        getProducts={getProducts}
+      />
     </Page>
   );
 };

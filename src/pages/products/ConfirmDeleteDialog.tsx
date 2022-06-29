@@ -15,11 +15,13 @@ interface IConfirmDeleteDialog {
   open: boolean;
   handleClose: () => void;
   productId: string;
+  getProducts: () => Promise<void>;
 }
 
 const ConfirmDeleteDialog = ({
   open,
   handleClose,
+  getProducts,
   productId,
 }: IConfirmDeleteDialog) => {
   const token = localStorage.getItem("token");
@@ -37,6 +39,7 @@ const ConfirmDeleteDialog = ({
           variant: "success",
         });
         handleClose();
+        getProducts();
       } catch (error: any) {
         enqueueSnackbar(
           error?.response?.data?.errors[0]?.msg ||

@@ -14,6 +14,7 @@ import {
   Select,
   SelectChangeEvent,
   FormControl,
+  Typography,
   IconButton,
   Grid,
 } from "@mui/material";
@@ -34,6 +35,7 @@ interface IProductFormProps {
   open: boolean;
   handleClose: () => void;
   formType: "ADD" | "EDIT";
+  getProducts: () => Promise<void>;
   productId?: string;
 }
 
@@ -45,6 +47,7 @@ const ProductForm = ({
   open,
   handleClose,
   formType,
+  getProducts,
   productId,
 }: IProductFormProps) => {
   const token = localStorage.getItem("token");
@@ -116,6 +119,7 @@ const ProductForm = ({
         enqueueSnackbar(response.msg, {
           variant: "success",
         });
+        getProducts();
       } catch (error: any) {
         enqueueSnackbar(
           error?.response?.data?.errors[0]?.msg ||
@@ -160,6 +164,7 @@ const ProductForm = ({
             variant: "success",
           }
         );
+        getProducts();
       } catch (error: any) {
         enqueueSnackbar(
           error?.response?.data?.errors[0]?.msg ||
@@ -234,7 +239,9 @@ const ProductForm = ({
       }}
     >
       <DialogTitle>
-        {formType === "ADD" ? "Add a new product" : "Edit a product"}
+        <Typography fontWeight={500} fontSize={20} sx={{ marginRight: "2rem" }}>
+          {formType === "ADD" ? "Add a new product" : "Edit a product"}
+        </Typography>
         <IconButton
           aria-label="close"
           onClick={handleClose}

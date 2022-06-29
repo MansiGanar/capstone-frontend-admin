@@ -8,9 +8,10 @@ import ProductForm from "./ProductForm";
 
 interface IListRowProps {
   product: Product;
+  getProducts: () => Promise<void>;
 }
 
-const ListRow = ({ product }: IListRowProps) => {
+const ListRow = ({ product, getProducts }: IListRowProps) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -104,6 +105,7 @@ const ListRow = ({ product }: IListRowProps) => {
         open={open}
         handleClose={handleClose}
         productId={product._id}
+        getProducts={getProducts}
       />
       <ViewProductDetailsDialog
         open={openDetails}
@@ -115,6 +117,7 @@ const ListRow = ({ product }: IListRowProps) => {
         handleClose={handleCloseEditProductForm}
         formType={"EDIT"}
         productId={product._id}
+        getProducts={getProducts}
       />
     </Grid>
   );

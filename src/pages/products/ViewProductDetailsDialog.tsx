@@ -72,7 +72,9 @@ const ViewProductDetailsDialog = ({
       }}
     >
       <DialogTitle>
-        Product details
+        <Typography fontWeight={500} fontSize={20} sx={{ marginRight: "2rem" }}>
+          Product details
+        </Typography>
         <IconButton
           aria-label="close"
           onClick={handleClose}
@@ -81,7 +83,6 @@ const ViewProductDetailsDialog = ({
             right: 24,
             top: 24,
             color: (theme) => theme.palette.grey[500],
-            marginLeft: loading ? "3rem" : "",
           }}
         >
           <CloseIcon />
