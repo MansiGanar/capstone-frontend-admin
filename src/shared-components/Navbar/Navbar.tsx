@@ -41,6 +41,7 @@ const Navbar = () => {
 
   useEffect(() => {
     getProfileData();
+    // eslint-disable-next-line
   }, []);
 
   return (

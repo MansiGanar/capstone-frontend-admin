@@ -55,6 +55,7 @@ const ViewProductDetailsDialog = ({
 
   useEffect(() => {
     open && getProductDetails();
+    // eslint-disable-next-line
   }, [open]);
 
   return (

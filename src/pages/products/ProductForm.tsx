@@ -222,6 +222,7 @@ const ProductForm = ({
     if (token && productId && open) {
       getProductDetails();
     }
+    // eslint-disable-next-line
   }, [productId, open]);
 
   return (
