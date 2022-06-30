@@ -10,3 +10,4 @@ export const GET_PRODUCTS_BY_CATEGORY_URL = BASE_URL + "products/category/";
 export const DELETE_PRODUCT_URL = BASE_URL + "products/";
 export const GET_PRODUCT_BY_ID_URL = BASE_URL + "products/";
 export const EDIT_PRODUCT_URL = BASE_URL + "products/edit/";
+export const GET_ALL_PRODUCTS = BASE_URL + "products/all";

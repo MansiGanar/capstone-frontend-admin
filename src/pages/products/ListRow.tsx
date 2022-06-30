@@ -9,9 +9,10 @@ import ProductForm from "./ProductForm";
 interface IListRowProps {
   product: Product;
   getProducts: () => Promise<void>;
+  category: string;
 }
 
-const ListRow = ({ product, getProducts }: IListRowProps) => {
+const ListRow = ({ product, getProducts, category }: IListRowProps) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -55,17 +56,31 @@ const ListRow = ({ product, getProducts }: IListRowProps) => {
       textAlign="center"
       alignItems="center"
     >
-      <Grid item sm={3}>
+      <Grid item sm={2}>
         <img
           src={product.image}
           alt="product"
           style={{ borderRadius: "1rem", width: "5rem" }}
         />
       </Grid>
-      <Grid item sm={2}>
+      <Grid item sm={category === "all" ? 2 : 3}>
         {product.name}
       </Grid>
-      <Grid item sm={2}>
+      {category === "all" && (
+        <Grid item sm={2}>
+          <Chip
+            label={product.category.toUpperCase().replaceAll("-", " ")}
+            sx={{
+              background:
+                "linear-gradient(178.18deg, #FD749B -13.56%, #281AC8 158.3%)",
+              fontWeight: "700",
+              color: "#FFFFFF",
+              width: "7rem",
+            }}
+          />
+        </Grid>
+      )}
+      <Grid item sm={category === "all" ? 1 : 2}>
         {product.quantity}
       </Grid>
       <Grid item sm={2}>

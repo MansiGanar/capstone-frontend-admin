@@ -20,6 +20,11 @@ export interface GetProductsByCategoryResponse {
   products: Product[];
 }
 
+export interface GetAllProductsResponse {
+  msg: string;
+  products: Product[];
+}
+
 export interface DeleteProductResponse {
   msg: string;
 }

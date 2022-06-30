@@ -1,20 +1,29 @@
 import React from "react";
 import { Grid } from "@mui/material";
 
-const ListHeader = () => {
+interface IListHeaderProps {
+  category: string;
+}
+
+const ListHeader = ({ category }: IListHeaderProps) => {
   return (
     <Grid
       container
       sx={{ marginBottom: "1.5rem", background: "#FFFFFF" }}
       textAlign="center"
     >
-      <Grid item sx={{ fontWeight: "700" }} sm={3}>
+      <Grid item sx={{ fontWeight: "700" }} sm={2}>
         Product Image
       </Grid>
-      <Grid item sx={{ fontWeight: "700" }} sm={2}>
+      <Grid item sx={{ fontWeight: "700" }} sm={category === "all" ? 2 : 3}>
         Product Name
       </Grid>
-      <Grid item sx={{ fontWeight: "700" }} sm={2}>
+      {category === "all" && (
+        <Grid item sx={{ fontWeight: "700" }} sm={2}>
+          Product Category
+        </Grid>
+      )}
+      <Grid item sx={{ fontWeight: "700" }} sm={category === "all" ? 1 : 2}>
         Product Quantity
       </Grid>
       <Grid item sx={{ fontWeight: "700" }} sm={2}>

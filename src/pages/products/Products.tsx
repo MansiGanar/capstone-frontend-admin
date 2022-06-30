@@ -5,9 +5,15 @@ import Page from "../../shared-components/Page/Page";
 import ListHeader from "./ListHeader";
 import ListRow from "./ListRow";
 import ProductForm from "./ProductForm";
-import { getProductsByCategory } from "../../api/products/products";
+import {
+  getAllProducts,
+  getProductsByCategory,
+} from "../../api/products/products";
 import { useSnackbar } from "notistack";
-import { GetProductsByCategoryResponse } from "../../api/products/types";
+import {
+  GetAllProductsResponse,
+  GetProductsByCategoryResponse,
+} from "../../api/products/types";
 import Loader from "../../shared-components/Loader/Loader";
 
 const Products = () => {
@@ -23,7 +29,7 @@ const Products = () => {
     setOpen(false);
   };
 
-  const [category, setCategory] = useState("kitchen");
+  const [category, setCategory] = useState("all");
 
   const handleClickCategory = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -40,8 +46,9 @@ const Products = () => {
         }
       : { padding: "0 0.5rem 0.5rem 0.5rem" };
 
-  const [response, setResponse] =
-    useState<GetProductsByCategoryResponse | null>(null);
+  const [response, setResponse] = useState<
+    GetProductsByCategoryResponse | GetAllProductsResponse | null
+  >(null);
   const [loading, setLoading] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
@@ -50,7 +57,10 @@ const Products = () => {
     if (token) {
       setLoading(true);
       try {
-        const response = await getProductsByCategory(category, token);
+        const response =
+          category === "all"
+            ? await getAllProducts(token)
+            : await getProductsByCategory(category, token);
         setResponse(response);
       } catch (error: any) {
         setResponse(null);
@@ -105,6 +115,15 @@ const Products = () => {
         </Grid>
       </Grid>
       <Grid container sx={{ margin: "1rem 0 0 0" }} gap="1rem">
+        <Grid item sx={{ cursor: "pointer" }}>
+          <Typography
+            sx={selectedCategoryStyles("all")}
+            id="all"
+            onClick={handleClickCategory}
+          >
+            All
+          </Typography>
+        </Grid>
         <Grid item sx={{ cursor: "pointer" }}>
           <Typography
             sx={selectedCategoryStyles("kitchen")}
@@ -174,12 +193,13 @@ const Products = () => {
             background: "#FFFFFF",
           }}
         >
-          <ListHeader />
+          <ListHeader category={category} />
           {response?.products.map((product, index) => (
             <ListRow
               product={product}
               key={`product-list-row-item-${index}`}
               getProducts={getProducts}
+              category={category}
             />
           ))}
         </Box>

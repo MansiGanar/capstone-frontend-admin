@@ -3,12 +3,14 @@ import {
   ADD_PRODUCT_URL,
   DELETE_PRODUCT_URL,
   EDIT_PRODUCT_URL,
+  GET_ALL_PRODUCTS,
   GET_PRODUCTS_BY_CATEGORY_URL,
   GET_PRODUCT_BY_ID_URL,
 } from "../paths";
 import {
   AddProductResponse,
   DeleteProductResponse,
+  GetAllProductsResponse,
   GetProductsByCategoryResponse,
   Product,
 } from "./types";
@@ -76,6 +78,17 @@ export const getProductById = async (
   token: string
 ): Promise<Product> => {
   const { data } = await axios.get(`${GET_PRODUCT_BY_ID_URL}${productId}`, {
+    headers: {
+      "auth-token": token,
+    },
+  });
+  return data;
+};
+
+export const getAllProducts = async (
+  token: string
+): Promise<GetAllProductsResponse> => {
+  const { data } = await axios.get(GET_ALL_PRODUCTS, {
     headers: {
       "auth-token": token,
     },
