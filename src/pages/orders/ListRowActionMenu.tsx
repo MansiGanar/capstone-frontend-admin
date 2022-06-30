@@ -43,6 +43,15 @@ const ListRowActionMenu = ({ handleClickOpen }: IListRowActionMenuProps) => {
       >
         <MenuItem
           onClick={() => {
+            handleClickOpen("view");
+            handleClose();
+          }}
+          sx={{ color: "#858585", padding: ".5rem 1rem" }}
+        >
+          View
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
             handleClickOpen("cancel");
             handleClose();
           }}

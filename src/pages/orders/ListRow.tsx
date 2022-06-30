@@ -3,19 +3,23 @@ import { Grid, Chip } from "@mui/material";
 import ConfirmCancelDialog from "./ConfirmCancelDialog";
 import ConfirmCompleteDialog from "./ConfirmCompleteDialog";
 import ListRowActionMenu from "./ListRowActionMenu";
+import ViewOrderDialog from "./ViewOrderDialog";
 
 const ListRow = () => {
   const [openCancel, setOpenCancel] = React.useState(false);
   const [openComplete, setOpenComplete] = React.useState(false);
+  const [openView, setOpenView] = React.useState(false);
 
   const handleClickOpen = (menuItemName: string) => {
     menuItemName === "cancel" && setOpenCancel(true);
     menuItemName === "complete" && setOpenComplete(true);
+    menuItemName === "view" && setOpenView(true);
   };
 
   const handleClose = () => {
     setOpenCancel(false);
     setOpenComplete(false);
+    setOpenView(false);
   };
 
   return (
@@ -67,6 +71,7 @@ const ListRow = () => {
       </Grid>
       <ConfirmCancelDialog open={openCancel} handleClose={handleClose} />
       <ConfirmCompleteDialog open={openComplete} handleClose={handleClose} />
+      <ViewOrderDialog open={openView} handleClose={handleClose} />
     </Grid>
   );
 };

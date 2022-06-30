@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Grid, Box, Button } from "@mui/material";
+import { Typography, Grid, Box } from "@mui/material";
 import Page from "../../shared-components/Page/Page";
 import ListHeader from "./ListHeader";
 import ListRow from "./ListRow";
@@ -36,20 +36,6 @@ const Orders = () => {
         <ListRow />
         <ListRow />
         <ListRow />
-        <Box sx={{ textAlign: "center", margin: "2rem 0 -1rem " }}>
-          <Button
-            variant="contained"
-            sx={{
-              borderRadius: "2rem",
-              textTransform: "none",
-              padding: ".5rem 2rem",
-              background:
-                "linear-gradient(178.18deg, #FD749B -13.56%, #281AC8 158.3%)",
-            }}
-          >
-            View More
-          </Button>
-        </Box>
       </Box>
     </Page>
   );
