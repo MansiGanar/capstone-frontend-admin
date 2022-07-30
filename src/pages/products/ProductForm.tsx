@@ -98,6 +98,8 @@ const ProductForm = ({
 
       setLoading(true);
       try {
+        const rating = Math.floor(Math.random() * (5.0 - 2.0 + 1.0)) + 1.0;
+
         const formData = new FormData();
         formData.append("name", productDetailsFormData.name);
         formData.append("description", productDetailsFormData.description);
@@ -105,10 +107,7 @@ const ProductForm = ({
         formData.append("price", productDetailsFormData.price.toString());
         formData.append("category", category);
         formData.append("image", image, image?.name);
-        formData.append(
-          "rating",
-          Math.ceil(Math.random() * (3 - 5 + 1) + 3).toString()
-        );
+        formData.append("rating", rating.toString());
 
         const response = await addProduct(formData, token);
         setProductDetailsFormData(defaultFormValues);
