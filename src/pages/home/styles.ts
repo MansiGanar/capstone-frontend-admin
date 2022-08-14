@@ -9,9 +9,6 @@ export const backgroundStyle = {
 };
 
 export const cardStyle = {
-  width: "40%",
-  marginLeft: "auto",
-  marginRight: 0,
   textAlign: "center",
   borderRadius: "3rem",
 };

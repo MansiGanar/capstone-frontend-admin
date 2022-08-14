@@ -17,7 +17,8 @@ const Page = ({ children }: IPageProps) => {
           sm={2}
           sx={{
             padding: "2rem 2rem 2rem 0",
-            borderRight: "1px solid rgba(0, 0, 0, 0.12)",
+            borderRight: "0.063rem solid rgba(0, 0, 0, 0.12)",
+            height: "92vh",
           }}
         >
           <SideMenu />
@@ -28,6 +29,10 @@ const Page = ({ children }: IPageProps) => {
             padding: "1.5rem 4rem",
             color: "#858585",
             background: "#FFF9FE",
+            height: "92vh",
+            overflow: "scroll",
+            overflowX: "hidden",
+            "::-webkit-scrollbar": { display: "none" },
           }}
           sm={10}
         >
