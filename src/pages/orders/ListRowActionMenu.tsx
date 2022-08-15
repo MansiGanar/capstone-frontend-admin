@@ -1,12 +1,12 @@
 import React from "react";
 import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { IListRowActionMenuProps } from "./types";
 
-interface IListRowActionMenuProps {
-  handleClickOpen: (menuItemName: string) => void;
-}
-
-const ListRowActionMenu = ({ handleClickOpen }: IListRowActionMenuProps) => {
+const ListRowActionMenu = ({
+  handleClickOpen,
+  orderStatus,
+}: IListRowActionMenuProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -15,6 +15,8 @@ const ListRowActionMenu = ({ handleClickOpen }: IListRowActionMenuProps) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const isDisabled = orderStatus === "Cancelled" || orderStatus === "Completed";
 
   return (
     <Box>
@@ -56,6 +58,7 @@ const ListRowActionMenu = ({ handleClickOpen }: IListRowActionMenuProps) => {
             handleClose();
           }}
           sx={{ color: "#858585", padding: ".5rem 1rem" }}
+          disabled={isDisabled}
         >
           Cancel
         </MenuItem>
@@ -65,6 +68,7 @@ const ListRowActionMenu = ({ handleClickOpen }: IListRowActionMenuProps) => {
             handleClose();
           }}
           sx={{ color: "#858585", padding: ".5rem 1rem" }}
+          disabled={isDisabled}
         >
           Complete
         </MenuItem>

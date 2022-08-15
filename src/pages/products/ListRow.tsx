@@ -5,6 +5,7 @@ import ConfirmDeleteDialog from "./ConfirmDeleteDialog";
 import { Product } from "../../api/products/types";
 import ViewProductDetailsDialog from "./ViewProductDetailsDialog";
 import ProductForm from "./ProductForm";
+import { formatPrice } from "../../utils/helpers";
 
 interface IListRowProps {
   product: Product;
@@ -63,7 +64,11 @@ const ListRow = ({ product, getProducts, category }: IListRowProps) => {
           style={{ borderRadius: "1rem", width: "5rem" }}
         />
       </Grid>
-      <Grid item sm={category === "all" ? 2 : 3}>
+      <Grid
+        item
+        sm={category === "all" ? 2 : 3}
+        sx={{ wordBreak: "break-word" }}
+      >
         {product.name}
       </Grid>
       {category === "all" && (
@@ -84,7 +89,7 @@ const ListRow = ({ product, getProducts, category }: IListRowProps) => {
         {product.quantity}
       </Grid>
       <Grid item sm={2}>
-        {`€ ${product.price}`}
+        {formatPrice(product.price)}
       </Grid>
       <Grid item sm={2}>
         {product.quantity > 0 ? (

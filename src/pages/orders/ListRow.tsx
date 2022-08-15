@@ -4,8 +4,10 @@ import ConfirmCancelDialog from "./ConfirmCancelDialog";
 import ConfirmCompleteDialog from "./ConfirmCompleteDialog";
 import ListRowActionMenu from "./ListRowActionMenu";
 import ViewOrderDialog from "./ViewOrderDialog";
+import { IListRowProps } from "./types";
+import { formatOrderId, formatPrice } from "../../utils/helpers";
 
-const ListRow = () => {
+const ListRow = ({ order, getOrdersList }: IListRowProps) => {
   const [openCancel, setOpenCancel] = React.useState(false);
   const [openComplete, setOpenComplete] = React.useState(false);
   const [openView, setOpenView] = React.useState(false);
@@ -36,42 +38,65 @@ const ListRow = () => {
       alignItems="center"
     >
       <Grid item sm={2}>
-        14/04/2022
+        {order.date}
       </Grid>
-      <Grid item sm={3}>
-        #REF67657655NHJ
-      </Grid>
-      <Grid item sm={2}>
-        John Hopkins
+      <Grid item sm={3} sx={{ wordBreak: "break-word" }}>
+        {formatOrderId(order._id)}
       </Grid>
       <Grid item sm={2}>
-        $ 987.87
+        {order.firstName + order.lastName}
       </Grid>
       <Grid item sm={2}>
-        <Chip
-          label="In progress"
-          sx={{
-            background:
-              "linear-gradient(178.18deg, #FD749B -13.56%, #281AC8 158.3%)",
-            fontWeight: "700",
-            color: "#FFFFFF",
-          }}
-        />
-        {/* <Chip
-          label="Cancelled"
-          sx={{ background: "#EB3232", fontWeight: "700", color: "#FFFFFF" }}
-        />
-        <Chip
-          label="Completed"
-          sx={{ background: "#0FE133", fontWeight: "700", color: "#FFFFFF" }}
-        /> */}
+        {formatPrice(order.totalCost)}
+      </Grid>
+      <Grid item sm={2}>
+        {order.status === "In progress" && (
+          <Chip
+            label="In progress"
+            sx={{
+              background:
+                "linear-gradient(178.18deg, #FD749B -13.56%, #281AC8 158.3%)",
+              fontWeight: "700",
+              color: "#FFFFFF",
+            }}
+          />
+        )}
+        {order.status === "Cancelled" && (
+          <Chip
+            label="Cancelled"
+            sx={{ background: "#EB3232", fontWeight: "700", color: "#FFFFFF" }}
+          />
+        )}
+        {order.status === "Completed" && (
+          <Chip
+            label="Completed"
+            sx={{ background: "#0FE133", fontWeight: "700", color: "#FFFFFF" }}
+          />
+        )}
       </Grid>
       <Grid item sm={1} textAlign="end">
-        <ListRowActionMenu handleClickOpen={handleClickOpen} />
+        <ListRowActionMenu
+          handleClickOpen={handleClickOpen}
+          orderStatus={order.status}
+        />
       </Grid>
-      <ConfirmCancelDialog open={openCancel} handleClose={handleClose} />
-      <ConfirmCompleteDialog open={openComplete} handleClose={handleClose} />
-      <ViewOrderDialog open={openView} handleClose={handleClose} />
+      <ConfirmCancelDialog
+        open={openCancel}
+        handleClose={handleClose}
+        orderId={order._id}
+        getOrdersList={getOrdersList}
+      />
+      <ConfirmCompleteDialog
+        open={openComplete}
+        handleClose={handleClose}
+        orderId={order._id}
+        getOrdersList={getOrdersList}
+      />
+      <ViewOrderDialog
+        open={openView}
+        handleClose={handleClose}
+        orderId={order._id}
+      />
     </Grid>
   );
 };

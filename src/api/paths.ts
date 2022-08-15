@@ -11,3 +11,8 @@ export const DELETE_PRODUCT_URL = BASE_URL + "products/";
 export const GET_PRODUCT_BY_ID_URL = BASE_URL + "products/";
 export const EDIT_PRODUCT_URL = BASE_URL + "products/edit/";
 export const GET_ALL_PRODUCTS = BASE_URL + "products/all";
+
+export const CANCEL_AN_ORDER_URL = BASE_URL + "orders/cancel/";
+export const COMPLETE_AN_ORDER_URL = BASE_URL + "orders/complete/";
+export const GET_ALL_ORDERS_URL = BASE_URL + "orders/all";
+export const GET_ORDER_BY_ID_URL = BASE_URL + "orders/";
