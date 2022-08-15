@@ -7,6 +7,7 @@ import Products from "./pages/products/Products";
 import PrivateRoute from "./shared-components/PrivateRoute/PrivateRoute";
 import ScrollToTop from "./shared-components/ScrollTopTop/ScrollToTop";
 import useJWTExpiry from "./hooks/useJWTExpiry";
+import ResetPassword from "./pages/password-reset/ResetPassword";
 
 function App() {
   const { isExpired } = useJWTExpiry();
@@ -23,6 +24,7 @@ function App() {
           vertical: "top",
           horizontal: "right",
         }}
+        preventDuplicate
       >
         <ScrollToTop />
         <Routes>
@@ -43,6 +45,7 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
       </SnackbarProvider>
     </BrowserRouter>

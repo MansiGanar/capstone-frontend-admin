@@ -61,8 +61,8 @@ const LoginForm = () => {
     } catch (error: any) {
       localStorage.removeItem("token");
       enqueueSnackbar(
-        error?.response?.data?.errors[0]?.msg ||
-          error?.response?.data?.msg ||
+        error?.response?.data?.msg ||
+          error?.response?.data?.errors[0]?.msg ||
           "An error occurred. Please try again.",
         {
           variant: "error",

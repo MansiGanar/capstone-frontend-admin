@@ -1,9 +1,15 @@
 export const BASE_URL =
   "https://e-commerce-backend-capstone.herokuapp.com/api/administrator/";
+export const BASE_URL_WITHOUT_ADMIN =
+  "https://e-commerce-backend-capstone.herokuapp.com/api/";
 
 export const REGISTER_ADMIN_URL = BASE_URL + "register";
 export const LOGIN_ADMIN_URL = BASE_URL + "login";
 export const GET_ADMIN_PROFILE_ADMIN_URL = BASE_URL + "profile";
+export const SEND_PASSWORD_RESET_EMAIL_ADMIN_URL =
+  BASE_URL_WITHOUT_ADMIN + "emails/reset-password/admin";
+export const RESET_PASSWORD_ADMIN_URL =
+  BASE_URL_WITHOUT_ADMIN + "emails/update-password/admin/";
 
 export const ADD_PRODUCT_URL = BASE_URL + "products";
 export const GET_PRODUCTS_BY_CATEGORY_URL = BASE_URL + "products/category/";
