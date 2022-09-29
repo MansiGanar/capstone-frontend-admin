@@ -29,7 +29,6 @@ const ConfirmDeleteDialog = ({
   const [loading, setLoading] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
-
   const removeProduct = async () => {
     if (token) {
       setLoading(true);

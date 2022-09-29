@@ -74,7 +74,7 @@ const Home = () => {
         <Grid item sm={4}>
           <Card sx={cardStyle}>
             <CardContent>
-              <Box sx={{ padding: "2rem 5rem", color: "#5C5C5C" }}>
+              <Box sx={{ padding: "2rem 2rem", color: "#5C5C5C" }}>
                 <Typography variant="h5" fontWeight={700}>
                   comfy decor
                 </Typography>

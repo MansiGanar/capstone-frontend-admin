@@ -136,7 +136,7 @@ const RegisterForm = () => {
           <Button
             variant="contained"
             sx={{
-              width: "22rem",
+              width: "19rem",
               borderRadius: "2rem",
               margin: "2.5rem 0 0",
               textTransform: "none",

@@ -65,6 +65,7 @@ export const deleteProduct = async (
   productId: string,
   token: string
 ): Promise<DeleteProductResponse> => {
+  console.log(productId);
   const { data } = await axios.delete(`${DELETE_PRODUCT_URL}${productId}`, {
     headers: {
       "auth-token": token,

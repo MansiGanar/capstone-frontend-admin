@@ -74,7 +74,7 @@ const LoginForm = () => {
 
   return (
     <form style={{ height: "17rem" }} onSubmit={handleSubmit}>
-      <Box sx={{ padding: "0 0 1.5rem 0" }}>
+      <Box sx={{ padding: "0 0 1rem 0" }}>
         <TextField
           InputProps={{
             startAdornment: (
@@ -115,7 +115,7 @@ const LoginForm = () => {
         <Button
           variant="contained"
           sx={{
-            width: "22rem",
+            width: "19rem",
             borderRadius: "2rem",
             margin: "2.5rem 0 0",
             textTransform: "none",
