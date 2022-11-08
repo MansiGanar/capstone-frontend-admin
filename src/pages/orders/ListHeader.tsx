@@ -11,10 +11,10 @@ const ListHeader = () => {
       <Grid item sx={{ fontWeight: "700" }} sm={2}>
         Date
       </Grid>
-      <Grid item sx={{ fontWeight: "700" }} sm={3}>
+      <Grid item sx={{ fontWeight: "700" }} sm={2}>
         Order ID
       </Grid>
-      <Grid item sx={{ fontWeight: "700" }} sm={2}>
+      <Grid item sx={{ fontWeight: "700" }} sm={3}>
         Customer Name
       </Grid>
       <Grid item sx={{ fontWeight: "700" }} sm={2}>

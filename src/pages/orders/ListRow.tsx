@@ -40,13 +40,13 @@ const ListRow = ({ order, getOrdersList }: IListRowProps) => {
       <Grid item sm={2}>
         {order.date}
       </Grid>
-      <Grid item sm={3} sx={{ wordBreak: "break-word" }}>
+      <Grid item sm={2} sx={{ wordBreak: "break-word" }}>
         {formatOrderId(order._id)}
       </Grid>
-      <Grid item sm={2}>
+      <Grid item sm={3} sx={{ wordBreak: "break-word" }}>
         {order.firstName + order.lastName}
       </Grid>
-      <Grid item sm={2}>
+      <Grid item sm={2} sx={{ wordBreak: "break-word" }}>
         {formatPrice(order.totalCost)}
       </Grid>
       <Grid item sm={2}>
